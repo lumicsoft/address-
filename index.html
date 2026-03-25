@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <button onclick="generateCSV()" style="padding: 20px; background: gold; border: none; font-weight: bold; cursor: pointer;">
+        DOWNLOAD 1000 ADDRESSES (Under 90k)
+    </button>
+
+    <script>
+        function generateCSV() {
+            let csvContent = "address,amount\n";
+            let total = 0;
+            
+            for (let i = 0; i < 1000; i++) {
+                // Fake address generator
+                let addr = "0x" + Array.from({length: 40}, () => Math.floor(Math.random() * 16).toString(16)).join('');
+                // Random amount between 85 and 89 taaki 90k cross na ho
+                let amt = (Math.random() * (89.9 - 85.0) + 85.0).toFixed(2);
+                csvContent += `${addr},${amt}\n`;
+                total += parseFloat(amt);
+            }
+            
+            console.log("Total Amount generated: ", total);
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'rebirth_1000_payouts.csv';
+            a.click();
+        }
+    </script>
+</body>
+</html>
